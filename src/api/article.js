@@ -27,9 +27,25 @@ export default {
             return resp.data
         })
     },
+    getEveryTagInfo: () =>{
+        return axios.request({
+            url:"blog/article/getEveryTagInfo",
+            method:"get"
+        }).then(resp => {
+            return resp.data
+        })
+    },
     getGroupList: () =>{
         return axios.request({
             url:"blog/article/getGroupList",
+            method:"get"
+        }).then(resp => {
+            return resp.data
+        })
+    },
+    getEveryGroupInfo: () =>{
+        return axios.request({
+            url:"blog/article/getEveryGroupInfo",
             method:"get"
         }).then(resp => {
             return resp.data

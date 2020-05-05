@@ -21,28 +21,10 @@
         </div>
       </div>
     </div>
-    <!-- 分类区域 -->
-    <div class="row-center option  flex-row option" @click="toHome"><img class="link-img mr-10 option" src="../../assets/icon/home.png" />首页</div>
-    <div class="group-con row-center flex-row option mt-20" @click="toGroup">
-      <img class="link-img mr-10 option" src="../../assets/icon/group.png" />
-      <div class=" group-title row-center option">分类</div>
-      <!-- <div class="flex-feel">
-          <div v-for="item in groupList" :key="item._id" class="every-group ml-10 mr-10">{{item.name}}</div>
-      </div> -->
-
+   
+    <div v-for="item in routeList" :key="item.name" @click="toRoute(item.name)" :class="['row-center', 'option', 'mt-20', 'option',localRoute===item.name?'local-active':'']">
+      <img class="link-img mr-10 option" :src="item.img" />{{item.title}}
     </div>
-    <!-- 标签云 区域 -->
-    <div class="tag-con mt-20 row-center flex-row option " @click="toTag">
-      <img class="link-img mr-10 option" src="../../assets/icon/tag.png" />
-      <div class="tag-title row-center option">标签</div>
-      <!-- <div class="flex-feel">
-        <div v-for="item in tagList" :key="item._id" class="every-tag ml-10 mr-10">{{item.name}}</div>
-      </div> -->
-    </div>
-    <div class="row-center option mt-20 option" @click="toArchive">
-      <img class="link-img mr-10 option" src="../../assets/icon/archive.png" />归档</div>
-    <!-- 留言区域 -->
-    <div class="row-center option mt-20 flex-row option" @click="toComment"><img class="link-img mr-10 option" src="../../assets/icon/yan.png" />留言</div>
   </div>
 </template>
 
@@ -51,14 +33,26 @@ import { articleApi } from "@/api";
 export default {
   data() {
     return {
+      routeList:[
+        {title:"首页",name:"home",img:"http://xynagisa.xyz/home.png"},
+        {title:"分类",name:"group",img:"http://xynagisa.xyz/group_1588217271047.png"},
+        {title:"标签",name:"tags",img:"http://xynagisa.xyz/tag_1588217294694.png"},
+        {title:"归档",name:"archive",img:"http://xynagisa.xyz/archive.png"},
+        {title:"留言",name:"comment",img:"http://xynagisa.xyz/yan_1588217308181.png"},
+      ],
+      localRoute:"",
       telList: [],
       groupList:[],
-      tagList:[]
+      tagList:[],
     };
   },
   mounted() {
     this.getGroupList();
     this.getTagsList();
+    this.$root.Bus.$on("localRoute",(msg)=>{
+      console.log("localRoute",msg)
+      this.localRoute=msg
+    })
   },
   methods: {
     getGroupList() {
@@ -71,22 +65,10 @@ export default {
         this.tagList = res.result
       });
     },
-    toGroup(){
+    toRoute(name){
       this.$router.push({
-        name:"group"
+        name:name
       })
-    },
-    toHome(){
-        this.$router.push({name:"home"})
-    },
-    toTag(){
-      this.$router.push({name:"tags"})
-    },
-    toArchive(){
-      this.$router.push({name:"archive"})
-    },
-    toComment(){
-      this.$router.push({name:"comment"})
     }
   }
 };
@@ -122,5 +104,10 @@ export default {
 }
 .tag-con{
  padding: 0 20px;
+}
+.local-active{
+  transform: scale(1.3);
+  font-weight: border;
+  font-family: 'Times New Roman', Times, serif;
 }
 </style>

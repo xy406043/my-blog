@@ -20,8 +20,8 @@ module.exports = {
   },
   runtimeCompiler:true,
   productionSourceMap: false,
-  extract: IS_PROD,
-  sourceMap: false,
+  // extract: IS_PROD,
+  // sourceMap: false,
   configureWebpack:{
   }
 }

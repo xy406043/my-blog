@@ -25,5 +25,6 @@ body,
   padding: 0;
   height: 100%;
   width: 100%;
+  font-family: 'Times New Roman', Times, serif;
 }
 </style>
